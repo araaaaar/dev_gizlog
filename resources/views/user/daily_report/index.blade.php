@@ -8,7 +8,7 @@
       <input class="form-control" name="search-month" type="month">
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
     </form>
-    <a class="btn btn-icon" href=""><i class="fa fa-plus"></i></a>
+    <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
@@ -18,6 +18,7 @@
           <th class="col-xs-3">Title</th>
           <th class="col-xs-5">Content</th>
           <th class="col-xs-2"></th>
+          {{-- ↑追加するとパラメータ無いよエラー、href="{{ route('report.edit') }}" --}}
         </tr>
       </thead>
       <tbody>
