@@ -17,13 +17,15 @@ class DailyReport extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
+        'user_id',
         'reporting_time',
         'title',
         'content',
     ];
 
-    // public function getByUserId($id)
-    // {
-    //     return $this->where('user_id', $id)->get();
-    // }
+    public function getByUserId($id)
+    {
+        return $this->where('user_id', $id)->get();
+    }
 }
+

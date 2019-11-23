@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,6 +120,7 @@ return [
     */
 
     'providers' => [
+        Collective\Html\HtmlServiceProvider::class, //追記
 
         /*
          * Laravel Framework Service Providers...
@@ -175,6 +176,8 @@ return [
     */
 
     'aliases' => [
+        'Form' => Collective\Html\FormFacade::class,  // 追記
+        'Html' => Collective\Html\HtmlFacade::class,  // 追記
 
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

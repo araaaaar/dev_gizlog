@@ -10,11 +10,13 @@ use Auth;
 class DailyReportController extends Controller
 {
     private $daily_report;
+    private $user;
 
-    public function __construct(DailyReport $instanceClass)
+    public function __construct(DailyReport $instanceClass, User $userInstanceClass)
     {
         $this->middleware('auth');
         $this->daily_report = $instanceClass;
+        $this->user = $userInstanceClass;
     }
 
 
@@ -26,7 +28,9 @@ class DailyReportController extends Controller
     public function index()
     {
         //
-        return view('user.daily_report.index');
+        $daily_reports = $this->daily_report->getByUserId(Auth::id());
+        $user = Auth::user();
+        return view('user.daily_report.index', compact('daily_reports', 'user'));
     }
 
 
@@ -51,9 +55,11 @@ class DailyReportController extends Controller
     {
         //
         $input = $request->all();
+        // dd($input);
         $input['user_id'] = Auth::id();
-        $this->report->fill($input)->save();
-        return redirect()->route('todo.index');
+        $this->daily_report->fill($input)->save();
+        return redirect()->route('report.index');
+        
     }
 
     /**

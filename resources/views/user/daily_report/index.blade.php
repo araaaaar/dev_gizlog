@@ -6,7 +6,7 @@
   <div class="btn-wrapper daily-report">
     <form>
       <input class="form-control" name="search-month" type="month">
-      <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
+      <button type="submit" class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-search"></i></button>
     </form>
     <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
@@ -18,16 +18,17 @@
           <th class="col-xs-3">Title</th>
           <th class="col-xs-5">Content</th>
           <th class="col-xs-2"></th>
-          {{-- ↑追加するとパラメータ無いよエラー、href="{{ route('report.edit') }}" --}}
         </tr>
       </thead>
       <tbody>
+        @foreach ($daily_reports as $daily_report)
           <tr class="row">
-            <td class="col-xs-2"></td>
-            <td class="col-xs-3"></td>
-            <td class="col-xs-5"></td>
+            <td class="col-xs-2">{{ $daily_report->reporting_time }}</td>
+            <td class="col-xs-3">{{ $daily_report->title }}</td>
+            <td class="col-xs-5">{{ $daily_report->content }}</td>
             <td class="col-xs-2"><a class="btn" href=""><i class="fa fa-book"></i></a></td>
           </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
