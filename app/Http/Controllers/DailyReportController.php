@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\DailyReport;
 use App\User;
 use Auth;
+use Post;
 
 class DailyReportController extends Controller
 {
@@ -19,7 +20,6 @@ class DailyReportController extends Controller
         $this->user = $userInstanceClass;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -29,10 +29,13 @@ class DailyReportController extends Controller
     {
         //
         $daily_reports = $this->daily_report->getByUserId(Auth::id());
+        // $daily_reports = $this->daily_report->getByUserId(Auth::id())->paginate(10);
+        // dd($daily_reports); 
         $user = Auth::user();
-        return view('user.daily_report.index', compact('daily_reports', 'user'));
-    }
 
+        return view('user.daily_report.index', compact('daily_reports', 'user'));
+        // return view('user.daily_report.index', compact('daily_reports', 'user', 'posts'));
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -25,7 +25,7 @@ class DailyReport extends Model
 
     public function getByUserId($id)
     {
-        return $this->where('user_id', $id)->get();
+        return $this->where('user_id', $id)->paginate(10);
+        // return $this->where('user_id', $id)->where('reporting_time', "YYYY-MM")->paginate(10);
     }
 }
-

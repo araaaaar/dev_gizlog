@@ -3,13 +3,24 @@
 
 <h2 class="brand-header">日報一覧</h2>
 <div class="main-wrap">
+  
   <div class="btn-wrapper daily-report">
-    <form>
-      <input class="form-control" name="search-month" type="month">
-      <button type="submit" class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-search"></i></button>
-    </form>
+
+    {{-- <form> --}}
+    {!! Form::open(['route' => 'report.create']) !!}
+
+      {{-- <input class="form-control" name="search-month" type="month"> --}}
+      {!! Form::input('month', 'search-month', null, ['class' => 'form-control']) !!}
+      
+      {{-- <button type="submit" class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-search"></i></button> --}}
+      {!! Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon']) !!}
+      
+    {{-- </form> --}}
+    {!! Form::close() !!}
+
     <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
+
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
@@ -31,7 +42,13 @@
         @endforeach
       </tbody>
     </table>
-  </div>
+
+      <div class="text-center">
+        {{-- <php echo $daily_reports->links(); ?> --}}
+        {{ $daily_reports->links() }}
+      </div>
+
+    </div>
 </div>
 
 @endsection
