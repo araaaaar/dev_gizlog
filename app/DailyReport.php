@@ -23,9 +23,12 @@ class DailyReport extends Model
         'content',
     ];
 
-    public function getByUserId($id)
+    public function getByUserId($id, $month)
     {
-        return $this->where('user_id', $id)->paginate(10);
-        // return $this->where('user_id', $id)->where('reporting_time', "YYYY-MM")->paginate(10);
+        return $this->when($month, function ($query, $month) {
+            return $query->where('reporting_time', 'LIKE', "%{$month}%__");
+        })
+        ->where('user_id', $id)->paginate(10);
     }
 }
+

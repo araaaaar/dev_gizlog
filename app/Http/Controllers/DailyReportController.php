@@ -25,16 +25,17 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $daily_reports = $this->daily_report->getByUserId(Auth::id());
-        // $daily_reports = $this->daily_report->getByUserId(Auth::id())->paginate(10);
-        // dd($daily_reports); 
+        // $input = $request->all();
+        // dd($input);
+        $month = $request->input('search-month');
+        // dd($month); 
+        $daily_reports = $this->daily_report->getByUserId(Auth::id(), $month);
+        
         $user = Auth::user();
-
         return view('user.daily_report.index', compact('daily_reports', 'user'));
-        // return view('user.daily_report.index', compact('daily_reports', 'user', 'posts'));
     }
 
     /**
