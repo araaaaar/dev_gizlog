@@ -30,10 +30,12 @@
       <tbody>
         @foreach ($daily_reports as $daily_report)
           <tr class="row">
-            <td class="col-xs-2">{{ $daily_report->reporting_time }}</td>
+            {{-- <td class="col-xs-2">{{ $daily_report->reporting_time }}</td> --}}
+            <td class="col-xs-2">{{ $daily_report->reporting_time->format('m/d (D)') }}</td>
+            {{-- {{ var_dump($daily_report->reporting_time) }} --}}
             <td class="col-xs-3">{{ $daily_report->title }}</td>
             <td class="col-xs-5">{{ $daily_report->content }}</td>
-            <td class="col-xs-2"><a class="btn" href="{{ route('report.edit', $daily_report->id) }}"><i class="fa fa-book"></i></a></td>
+            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $daily_report->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
       </tbody>

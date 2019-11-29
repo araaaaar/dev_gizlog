@@ -14,7 +14,10 @@ class DailyReport extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+        'reporting_time',
+    ];
 
     protected $fillable = [
         'user_id',

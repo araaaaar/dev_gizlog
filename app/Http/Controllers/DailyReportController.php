@@ -12,6 +12,7 @@ class DailyReportController extends Controller
 {
     private $daily_report;
     private $user;
+    private $month;
 
     public function __construct(DailyReport $instanceClass, User $userInstanceClass)
     {
@@ -75,6 +76,8 @@ class DailyReportController extends Controller
     public function show($id)
     {
         //
+        $daily_report = $this->daily_report->find($id);
+        return view('user.daily_report.show', compact('daily_report'));
     }
 
     /**
@@ -83,10 +86,12 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
-        return view('user.daily_report.edit');
+        $month = $request->input('search-month');
+        $daily_report = $this->daily_report->find($id, $month);
+        return view('user.daily_report.edit', compact('daily_report'));
     }
 
     /**
@@ -96,7 +101,7 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }
