@@ -7,12 +7,13 @@ use App\DailyReport;
 use App\User;
 use Auth;
 use Post;
+use App\Http\Requests\User\DailyReportRequest;
 
 class DailyReportController extends Controller
 {
     private $daily_report;
     private $user;
-    private $month;
+    // private $month;
 
     public function __construct(DailyReport $instanceClass, User $userInstanceClass)
     {
@@ -28,13 +29,8 @@ class DailyReportController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // $input = $request->all();
-        // dd($input);
         $month = $request->input('search-month');
-        // dd($month); 
         $daily_reports = $this->daily_report->getByUserId(Auth::id(), $month);
-        
         $user = Auth::user();
         return view('user.daily_report.index', compact('daily_reports', 'user'));
     }
@@ -46,7 +42,6 @@ class DailyReportController extends Controller
      */
     public function create()
     {
-        //
         return view('user.daily_report.create');
     }
 
@@ -56,15 +51,13 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, DailyReportRequest $DailyReportRequest)
     {
-        //
+        // $input = $request->validate();
         $input = $request->all();
-        // dd($input);
         $input['user_id'] = Auth::id();
         $this->daily_report->fill($input)->save();
         return redirect()->route('report.index');
-        
     }
 
     /**
@@ -75,7 +68,6 @@ class DailyReportController extends Controller
      */
     public function show($id)
     {
-        //
         $daily_report = $this->daily_report->find($id);
         return view('user.daily_report.show', compact('daily_report'));
     }
@@ -88,7 +80,6 @@ class DailyReportController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        //
         $month = $request->input('search-month');
         $daily_report = $this->daily_report->find($id, $month);
         return view('user.daily_report.edit', compact('daily_report'));
@@ -101,9 +92,12 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+
+    public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $this->daily_report->find($id)->fill($input)->save();
+        return redirect()->route('report.index');
     }
 
     /**
@@ -114,6 +108,8 @@ class DailyReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->daily_report->find($id)->delete();
+        return redirect()->route('report.index');
     }
 }
+
