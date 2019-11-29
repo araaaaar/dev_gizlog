@@ -34,7 +34,7 @@
       </tbody>
     </table>
       <div class="text-center">
-        {{ $daily_reports->links() }}
+        {{ $daily_reports->appends(request()->input())->links() }}
       </div>
     </div>
 </div>
