@@ -2,16 +2,13 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\DailyReport::class, function (Faker $faker) {
     return [
-        'user_id'        => function () {
-            return factory(App\User::class)->create()->id;
-        },
+        'user_id'        => '4',
         'title'          => $faker->title,
         'content'        => $faker->paragraph,
-        'reporting_time' => $faker->date,
+        'reporting_time' => $faker->dateTimeThisYear,
         'created_at'     => $faker->date,
         'updated_at'     => $faker->date,
-        'deleted_at'     => $faker->date,
     ];
 });
