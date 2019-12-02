@@ -12,8 +12,23 @@ class DailyReportsTableSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('daily_reports')->truncate();
+        DB::table('daily_reports')->truncate();
+
+        $faker = Faker::create('ja_JP');
+        factory(User::class, 50)->create();
+
+
+
+
         // DB::table('daily_reports')->insert([
+
+
+
+
+
+
+
+
         //     [
         //         'user_id'        => 1,
         //         'title'          => 'タイトル1',

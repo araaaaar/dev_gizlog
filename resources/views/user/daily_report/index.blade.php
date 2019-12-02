@@ -1,6 +1,7 @@
 @extends ('common.user')
 @section ('content')
 
+
 <h2 class="brand-header">日報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
@@ -12,6 +13,13 @@
 
     <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
+
+
+  <div class="@if($errors->has('search-month')) has-error @endif">
+    <span class="help-block">{{ $errors->first('search-month') }}</span>
+  </div>
+
+  
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
@@ -33,7 +41,8 @@
         @endforeach
       </tbody>
     </table>
-      <div class="text-center">
+
+    <div class="text-center">
         {{ $daily_reports->appends(request()->input())->links() }}
       </div>
     </div>

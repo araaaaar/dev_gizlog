@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\DailyReportRequest;
+use App\Http\Requests\SearchMonthRequest;
 use Illuminate\Http\Request;
 use App\DailyReport;
 use App\User;
 use Auth;
 use Post;
-use App\Http\Requests\User\DailyReportRequest;
 
 class DailyReportController extends Controller
 {
     private $daily_report;
     private $user;
-    // private $month;
 
     public function __construct(DailyReport $instanceClass, User $userInstanceClass)
     {
@@ -27,7 +27,7 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(SearchMonthRequest $request)
     {
         $month = $request->input('search-month');
         $daily_reports = $this->daily_report->getByUserId(Auth::id(), $month);
@@ -51,11 +51,9 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, DailyReportRequest $DailyReportRequest)
+    public function store(DailyReportRequest $request)
     {
-        // $input = $request->validate();
         $input = $request->all();
-        // dd($DailyReportRequest);
         $input['user_id'] = Auth::id();
         $this->daily_report->fill($input)->save();
         return redirect()->route('report.index');
@@ -93,8 +91,7 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
         $this->daily_report->find($id)->fill($input)->save();
@@ -113,4 +110,3 @@ class DailyReportController extends Controller
         return redirect()->route('report.index');
     }
 }
-

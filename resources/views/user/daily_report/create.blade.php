@@ -10,17 +10,18 @@
         {!! Form::date('reporting_time', date('Y-m-d'), ['class' => 'form-control']) !!}
         <span class="help-block">{{ $errors->first('reporting_time') }}</span>
       </div>
+
       <div class="form-group @if($errors->has('title')) has-error @endif">
-        {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
+        {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
         <span class="help-block">{{ $errors->first('title') }}</span>
       </div>
+
       <div class="form-group @if($errors->has('content')) has-error @endif">
         {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Content', 'size' => '50x10']) !!}
         <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
       {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
-
   </div>
 </div>
 
