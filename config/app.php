@@ -120,7 +120,7 @@ return [
     */
 
     'providers' => [
-        Collective\Html\HtmlServiceProvider::class, //追記
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...
@@ -176,8 +176,8 @@ return [
     */
 
     'aliases' => [
-        'Form' => Collective\Html\FormFacade::class,  // 追記
-        'Html' => Collective\Html\HtmlFacade::class,  // 追記
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

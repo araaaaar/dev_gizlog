@@ -27,8 +27,10 @@ class DailyReport extends Model
     public function getByUserId($id, $month)
     {
         return $this->when($month, function ($query, $month) {
-            $query->where('reporting_time', 'LIKE', "%{$month}%__");
-        })
-        ->where('user_id', $id)->orderBy('reporting_time', 'desc')->paginate(10);
+                        $query->where('reporting_time', 'LIKE', "%{$month}%__");
+                    })
+                    ->where('user_id', $id)
+                    ->orderBy('reporting_time', 'desc')
+                    ->paginate(10);
     }
 }
