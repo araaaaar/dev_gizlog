@@ -4,41 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\DailyReportRequest;
 use App\Http\Requests\SearchMonthRequest;
-use Illuminate\Http\Request;
 use App\DailyReport;
 use App\User;
 use Auth;
-use Post;
 
 class DailyReportController extends Controller
 {
-    private $daily_report;
+    private $dailyReport;
     private $user;
 
     public function __construct(DailyReport $instanceClass, User $userInstanceClass)
     {
         $this->middleware('auth');
-        $this->daily_report = $instanceClass;
+        $this->dailyReport = $instanceClass;
         $this->user = $userInstanceClass;
     }
 
     /**
-     * Display a listing of the resource.
+     * 日報一覧表示
      *
-     * @return \Illuminate\Http\Response
-     */
+     * @param $month string
+     * @param $dailyReports LengthAwarePaginator object
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */ 
     public function index(SearchMonthRequest $request)
     {
         $month = $request->input('search-month');
-        $daily_reports = $this->daily_report->getByUserId(Auth::id(), $month);
-        $user = Auth::user();
-        return view('user.daily_report.index', compact('daily_reports', 'user'));
+        $dailyReports = $this->dailyReport->getByUserId(Auth::id(), $month);
+        return view('user.daily_report.index', compact('dailyReports'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 新規作成
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function create()
     {
@@ -46,67 +45,64 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * バリデートしDBに保存
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param $inputs array
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DailyReportRequest $request)
     {
-        $input = $request->all();
-        $input['user_id'] = Auth::id();
-        $this->daily_report->fill($input)->save();
+        $inputs = $request->validated();
+        $inputs['user_id'] = Auth::id();
+        $this->dailyReport->create($inputs);
         return redirect()->route('report.index');
     }
 
     /**
-     * Display the specified resource.
+     * 詳細表示
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $dailyReport DailyReport object
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show($id)
     {
-        $daily_report = $this->daily_report->find($id);
-        return view('user.daily_report.show', compact('daily_report'));
+        $dailyReport = $this->dailyReport->find($id);
+        return view('user.daily_report.show', compact('dailyReport'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 編集
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $dailyReport DailyReport object
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        $month = $request->input('search-month');
-        $daily_report = $this->daily_report->find($id, $month);
-        return view('user.daily_report.edit', compact('daily_report'));
+        $dailyReport = $this->dailyReport->find($id);
+        return view('user.daily_report.edit', compact('dailyReport'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * バリデートし更新
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $inputs array
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(DailyReportRequest $request, $id)
     {
-        $input = $request->all();
-        $this->daily_report->find($id)->fill($input)->save();
+        $inputs = $request->validated();
+        $this->dailyReport->find($id)->update($inputs);
         return redirect()->route('report.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 論理削除
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $this->daily_report->find($id)->delete();
+        $this->dailyReport->find($id)->delete();
         return redirect()->route('report.index');
     }
 }

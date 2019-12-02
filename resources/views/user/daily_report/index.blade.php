@@ -26,19 +26,19 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($daily_reports as $daily_report)
+        @foreach ($dailyReports as $dailyReport)
           <tr class="row">
-            <td class="col-xs-2">{{ $daily_report->reporting_time->format('m/d (D)') }}</td>
-            <td class="col-xs-3">{{ $daily_report->title }}</td>
-            <td class="col-xs-5">{{ $daily_report->content }}</td>
-            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $daily_report->id) }}"><i class="fa fa-book"></i></a></td>
+            <td class="col-xs-2">{{ $dailyReport->reporting_time->format('m/d (D)') }}</td>
+            <td class="col-xs-3">{{ $dailyReport->title }}</td>
+            <td class="col-xs-5">{{ $dailyReport->content }}</td>
+            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $dailyReport->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
       </tbody>
     </table>
 
     <div class="text-center">
-        {{ $daily_reports->appends(request()->input())->links() }}
+        {{ $dailyReports->appends(request()->input())->links() }}
       </div>
     </div>
 </div>
