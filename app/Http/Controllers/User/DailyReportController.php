@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\DailyReportRequest;
 use App\Http\Requests\SearchMonthRequest;
-use App\DailyReport;
-use App\User;
+use App\Http\Controllers\Controller;
+use App\Models\DailyReport;
 use Auth;
 
 class DailyReportController extends Controller
 {
     private $dailyReport;
-    private $user;
 
-    public function __construct(DailyReport $instanceClass, User $userInstanceClass)
+    public function __construct(DailyReport $instanceClass)
     {
         $this->middleware('auth');
         $this->dailyReport = $instanceClass;
-        $this->user = $userInstanceClass;
     }
 
     /**
