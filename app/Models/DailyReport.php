@@ -27,7 +27,7 @@ class DailyReport extends Model
 
     public function getByUserId($id, $month)
     {
-        return $this->when(isset($month), function ($query) use($month) {
+        return $this->when(isset($month), function ($query) use ($month) {
                         $query->where('reporting_time', 'LIKE', $month.'%');
                     })
                     ->where('user_id', $id)
