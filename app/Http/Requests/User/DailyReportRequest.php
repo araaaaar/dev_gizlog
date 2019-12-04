@@ -40,3 +40,4 @@ class DailyReportRequest extends FormRequest
         ];
     }
 }
+
