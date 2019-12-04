@@ -2,13 +2,11 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\DailyReport::class, function (Faker $faker) {
+$factory->define(App\Models\DailyReport::class, function (Faker $faker) {
     return [
         'user_id'        => '4',
-        'title'          => $faker->title,
+        'title'          => $faker->word,
         'content'        => $faker->text,
-        'reporting_time' => $faker->dateTimeThisYear,
-        'created_at'     => $faker->date,
-        'updated_at'     => $faker->date,
+        'reporting_time' => $faker->dateTimeBetween('-1 years', 'now'),
     ];
 });
