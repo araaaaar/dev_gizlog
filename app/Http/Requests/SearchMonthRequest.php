@@ -31,7 +31,7 @@ class SearchMonthRequest extends FormRequest
     public function messages()
     {
         return [
-            'search-month.date'            => '____年__月の形式で入力してください。',
+            'search-month.date'            => '不正な日付です。',
             'search-month.before_or_equal' => '今日以前の日付を入力してください。',
         ];
     }

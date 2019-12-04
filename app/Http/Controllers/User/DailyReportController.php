@@ -12,10 +12,10 @@ class DailyReportController extends Controller
 {
     private $dailyReport;
 
-    public function __construct(DailyReport $instanceClass)
+    public function __construct(DailyReport $dailyReportClass)
     {
         $this->middleware('auth');
-        $this->dailyReport = $instanceClass;
+        $this->dailyReport = $dailyReportClass;
     }
 
     /**
@@ -50,9 +50,9 @@ class DailyReportController extends Controller
      */
     public function store(DailyReportRequest $request)
     {
-        $inputs = $request->validated();
+        $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        $this->dailyReport->create($inputs);
+        $this->dailyReport->fill($inputs)->save();
         return redirect()->route('report.index');
     }
 
@@ -88,8 +88,8 @@ class DailyReportController extends Controller
      */
     public function update(DailyReportRequest $request, $id)
     {
-        $inputs = $request->validated();
-        $this->dailyReport->find($id)->update($inputs);
+        $inputs = $request->all();
+        $this->dailyReport->find($id)->fill($inputs)->save();
         return redirect()->route('report.index');
     }
 

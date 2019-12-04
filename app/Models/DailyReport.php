@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DailyReport extends Model
 {
+    use SoftDeletes;
     /**
      * 日付へキャストする属性
      *
