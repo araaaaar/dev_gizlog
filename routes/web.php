@@ -27,6 +27,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::post('/register', 'Auth\RegisterController@register');
     Route::get('/register/{query}', 'Auth\RegisterController@showRegistrationForm');
+
+
     Route::get('home', 'UserController@index')->name('home');
 
     Route::get('attendance', ['as' => 'attendance.index', 'uses' => 'AttendanceController@index']);
@@ -89,3 +91,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
 
 });
+
