@@ -4,8 +4,9 @@
 <h1 class="brand-header">日報詳細</h1>
 <div class="main-wrap">
   <div class="panel panel-success">
+      
     <div class="panel-heading">
-      {!! $dailyReport->reporting_time->format('Y/m/d (D)') !!}&nbsp;&nbsp;の日報
+      {!! $dailyReport->reporting_time->format('Y/m/d (D)') !!} の日報
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">

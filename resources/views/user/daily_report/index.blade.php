@@ -38,9 +38,9 @@
     </table>
 
     <div class="text-center">
-        {{ $dailyReports->appends(request()->input())->links() }}
-      </div>
+        {{ $dailyReports->appends(request()->all())->links() }}
     </div>
+  </div>
 </div>
 
 @endsection
