@@ -11,7 +11,6 @@ class QuestionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         DB::table('questions')->truncate();
         DB::table('questions')->insert([
             [
@@ -27,5 +26,7 @@ class QuestionsTableSeeder extends Seeder
                 'content' => 'test2',
             ],
         ]);
+
+        factory(App\Models\Question::class, 50)->create();
     }
 }
