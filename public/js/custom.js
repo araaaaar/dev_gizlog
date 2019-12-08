@@ -3,8 +3,10 @@ $(function(){
   // 質問掲示板のカテゴリ検索用
   $('.category-wrap .btn').on('click', function(){
     var category_id = $(this).attr('id');
+    // console.log( category_id );
+    // console.log(category_id);
     $('#category-val').val(category_id);
-    $('form').submit();
+    $('.search').submit();
   });
 
   // Admin個別勤怠作成

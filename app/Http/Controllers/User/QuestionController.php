@@ -5,39 +5,58 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\TagCategory;
+use App\Models\User;
+use App\Http\Requests\User\SearchWordRequest;
 
 class QuestionController extends Controller
 {
     protected $question;
+    protected $category;
 
-    public function __construct(Question $question)
+
+    public function __construct(Question $question, TagCategory $category, User $user)
     {
         $this->middleware('auth');
         $this->question = $question;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index(Request $request)
-    public function index()
-    {
-        return view('user.question.index');
+        $this->category = $category;
+        $this->user = $user;
+
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 一覧表示
+     * 
+     * @param $search_word string
+     * @param $searchCategory string
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function index(SearchWordRequest $request)
+    {
+        $searchWord = $request->input('search_word');
+        // dd($searchWord);
+        $searchCategory = $request->input('tag_category_id');
+        // dd($searchCategory);
+        $questions = $this->question->searchWord($searchWord)->searchCategory($searchCategory)->paginate(5);
+
+        $categories = $this->category->all();
+        // dd($categories);
+
+        return view('user.question.index', compact('questions', 'categories'));
+    }
+
+    /**
+     * 新規作成
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('user.question.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * DBへ保存
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -48,18 +67,22 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 詳細表示
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $user = $this->user->find($id);
+        $question = $this->question->find($id);
+        
+        // dd($question);
+        return view('user.question.show', compact('question', 'user'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 編集
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -70,7 +93,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 更新
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -82,7 +105,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 論理削除
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
