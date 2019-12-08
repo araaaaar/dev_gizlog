@@ -9,7 +9,8 @@
 
       <div class="form-group">
         {{-- <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id"> --}}
-        {{ Form::select('tag_category_id', ['front', 'back', 'infra', 'others'], 'Select category', ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id', 'placeholder' =>'Select category']) }}
+        {{-- {{ Form::select('tag_category_id', ['Select category', 'front', 'back', 'infra', 'others'], 'Select category', ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) }} --}}
+        {{ Form::select('tag_category_id', $plucked, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) }}
 
           {{-- <option value=""></option> --}}
             {{-- <option value= ""></option> --}}

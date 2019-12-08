@@ -8,12 +8,13 @@ use App\Models\Question;
 use App\Models\TagCategory;
 use App\Models\User;
 use App\Http\Requests\User\SearchWordRequest;
+use App\Http\Requests\User\QuestionsRequest;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
     protected $question;
     protected $category;
-
 
     public function __construct(Question $question, TagCategory $category, User $user)
     {
@@ -21,7 +22,6 @@ class QuestionController extends Controller
         $this->question = $question;
         $this->category = $category;
         $this->user = $user;
-
     }
 
     /**
@@ -34,13 +34,10 @@ class QuestionController extends Controller
     public function index(SearchWordRequest $request)
     {
         $searchWord = $request->input('search_word');
-        // dd($searchWord);
         $searchCategory = $request->input('tag_category_id');
-        // dd($searchCategory);
         $questions = $this->question->searchWord($searchWord)->searchCategory($searchCategory)->paginate(5);
-
+        dd($questions);
         $categories = $this->category->all();
-        // dd($categories);
 
         return view('user.question.index', compact('questions', 'categories'));
     }
@@ -52,7 +49,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('user.question.create');
+        $categories = $this->category->all();
+        $plucked = $categories->pluck('name', 'id')->prepend('Select category', 0);
+        $plucked->all();
+        return view('user.question.create', compact('categories', 'plucked'));
     }
 
     /**
@@ -61,9 +61,15 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionsRequest $request)
     {
-        //
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        // dd($inputs);
+        // $inputs['user_id'] = $this->question->find($id);
+        // dd($inputs);
+        $this->question->fill($inputs)->save();
+        return redirect()->route('question.index');
     }
 
     /**
