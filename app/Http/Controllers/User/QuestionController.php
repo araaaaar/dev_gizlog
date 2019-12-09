@@ -40,7 +40,7 @@ class QuestionController extends Controller
         $questions = $this->question->searchQuestion($searchWord, $searchCategory)->paginate(10);
         $categories = $this->category->all();
 
-        return view('user.question.index', compact('questions', 'categories'));
+        return view('user.question.index', compact('questions', 'categories', 'searchWord', 'searchCategory'));
     }
 
     /**
@@ -79,8 +79,6 @@ class QuestionController extends Controller
      */
     public function store(QuestionsRequest $request)
     {
-        
-        // dd($inputs);
 
         // $question = $this->question->find($id);
         // $this->question->fill($inputs)->save();
