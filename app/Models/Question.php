@@ -37,13 +37,13 @@ class Question extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-/**
- * ワード部分一致検索
- *
- * @param $query Builder object
- * @param $searchWord string
- * @return Illuminate\Database\Eloquent\Builder
- */
+    /**
+     * ワード部分一致検索
+     *
+     * @param $query Builder object
+     * @param $searchWord string
+     * @return Illuminate\Database\Eloquent\Builder
+     */
     public function scopeSearchWord($query, $searchWord)
     {
         if (!empty($searchWord)) {
@@ -64,6 +64,18 @@ class Question extends Model
             return $query->where('tag_category_id', $searchCategory);
         }
     }
+
+    /**
+     * 検索纏め
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function searchQuestion($searchWord, $searchCategory)
+    {
+        return $this->SearchWord($searchWord)
+            ->SearchCategory($searchCategory);
+    }
+
 
 }
 

@@ -37,7 +37,7 @@ class QuestionController extends Controller
     {
         $searchWord = $request->input('search_word');
         $searchCategory = $request->input('tag_category_id');
-        $questions = $this->question->searchWord($searchWord)->searchCategory($searchCategory)->paginate(10);
+        $questions = $this->question->searchQuestion($searchWord, $searchCategory)->paginate(10);
         $categories = $this->category->all();
 
         return view('user.question.index', compact('questions', 'categories'));
@@ -45,7 +45,8 @@ class QuestionController extends Controller
 
     /**
      * 新規作成
-     *
+     * 
+     * @param $plucked array
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function create()
@@ -56,19 +57,22 @@ class QuestionController extends Controller
     }
 
     /**
-     * 確認
+     * 保存内容確認
      *
-     * @return
+     * @param $inputs array
+     * @param $categoryName string
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function confirm(Request $request)
+    public function confirm(QuestionsRequest $request)
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        return view('user.question.confirm', compact('inputs'));
+        $categoryName = $this->category->find($inputs['tag_category_id'])->value('name');
+        return view('user.question.confirm', compact('inputs', 'categoryName'));
     }
 
     /**
-     * 内容確認しDBへ保存
+     * DBへ保存
      *
      * @param  $inputs array
      * @return 

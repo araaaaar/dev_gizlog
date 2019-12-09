@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
 
-    {!! Form::open(['route' => 'question.store']) !!}
+    {!! Form::open(['route' => 'question.confirm']) !!}
       <div class="form-group">
         {{ Form::select('tag_category_id', $plucked, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) }}
         <span class="help-block"></span>
@@ -18,7 +18,7 @@
         <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10"></textarea>
         <span class="help-block"></span>
       </div>
-      <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">
+      {!! Form::input('submit', 'confirm', 'create', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
 
   </div>
