@@ -22,12 +22,27 @@ class Question extends Model
         'deleted_at',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function tegCategory()
+    {
+        return $this->belongsTo('App\Models\TagCategory', 'tag_category_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
 /**
  * ワード部分一致検索
  *
- * @param [type] $query
- * @param [type] $searchWord
- * @return void
+ * @param $query Builder object
+ * @param $searchWord string
+ * @return Illuminate\Database\Eloquent\Builder
  */
     public function scopeSearchWord($query, $searchWord)
     {
@@ -39,9 +54,9 @@ class Question extends Model
     /**
      * カテゴリー完全一致検索
      *
-     * @param [type] $query
-     * @param [type] $categoryId
-     * @return void
+     * @param $query Builder object
+     * @param $categoryId string
+     * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeSearchCategory($query, $searchCategory)
     {

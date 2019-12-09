@@ -35,12 +35,17 @@ class QuestionController extends Controller
     {
         $searchWord = $request->input('search_word');
         $searchCategory = $request->input('tag_category_id');
+        // dd($this->question->first()->tegCategory->id);
         $questions = $this->question->searchWord($searchWord)->searchCategory($searchCategory)->paginate(10);
-        // dd($questions);
-        $categories = $this->category->all();
-        $users = $this->user->all();
 
-        return view('user.question.index', compact('questions', 'categories', 'users' ));
+        // $questions->category->id;
+        $categories = $this->category->all();
+        // $users = $this->user->all();
+
+
+        // $question->post->title;
+
+        return view('user.question.index', compact('questions', 'categories'));
     }
 
     /**
