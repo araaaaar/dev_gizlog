@@ -27,6 +27,6 @@ class QuestionsTableSeeder extends Seeder
             ],
         ]);
 
-        factory(App\Models\Question::class, 50)->create();
+        factory(App\Models\Question::class, 30)->create();
     }
 }

@@ -3,7 +3,6 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  {{-- <form> --}}
   {!! Form::open(['route' => ['question.index'], 'method' => 'GET', 'class' => 'search']) !!}
 
     <div class="btn-wrapper">
@@ -21,9 +20,9 @@
     
     <div class="category-wrap">
       <div class="btn all" id="0">all</div>
-      @foreach($categories as $category)
-        <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
-      @endforeach
+        @foreach($categories as $category)
+          <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
+        @endforeach
       {!! Form::hidden('tag_category_id', null, ['id' => 'category-val']) !!}
     </div>
   {!! Form::close() !!}
@@ -42,7 +41,7 @@
       <tbody>
         @foreach($questions as $question)
           <tr class="row">
-            <td class="col-xs-1"><img src="{{ $question->user->avater }}" class="avatar-img"></td>
+            <td class="col-xs-1"><img src="{{ $question->user->avatar }}" class="avatar-img"></td>
             <td class="col-xs-2">{{ $question->tegCategory->name }}</td>
             <td class="col-xs-6">{{ $question->title }}</td>
             <td class="col-xs-1"><span class="point-color"></span></td>
